@@ -12,10 +12,12 @@ function LoginNew() {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [userLogin, setUserLogin] = useState("");
-
+  const system_no = 7;
   const navigate = useNavigate();
 
-  const userDatabase = `http://10.17.100.115:3001/api/smart_planning/filter-user-login?user_login=${userLogin}`;
+  // const userDatabase = `http://10.17.100.115:3001/api/smart_planning/filter-user-login?user_login=${userLogin}`;
+  const userDatabase = `http://10.17.100.115:3001/api/smart_sus/filter-user-login-smart-sus?user_login=${userLogin}&system_no=${system_no}`;
+
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -27,14 +29,15 @@ function LoginNew() {
         console.log(data);
         if (
           data[0].user_login === userLogin &&
-          data[0].user_password === password
+          data[0].user_password === password &&
+          data[0]?.system_no === 7
         ) {
           localStorage.setItem("userToken", JSON.stringify(data[0]));
           console.log("Logged in successfully");
           Swal.fire({
             icon: "success",
             title: "Login Success",
-            text: "Welcome to Smart Planning",
+            text: "Welcome to Dashboard Monitoring",
           });
           navigate("/home");
         } else {
@@ -42,7 +45,7 @@ function LoginNew() {
           Swal.fire({
             icon: "error",
             title: "Login Failed",
-            text: "Please check your email or password",
+            text: "Please check your username or password or permission",
           });
         }
       })
@@ -51,7 +54,7 @@ function LoginNew() {
         Swal.fire({
           icon: "error",
           title: "User does not exist",
-          text: "Please check your email or password",
+          text: "Please check your username or password or permission",
         });
       });
   };
@@ -74,10 +77,8 @@ function LoginNew() {
   return (
     <div className="login-bg">
       <div className="login-container">
-        {/* <p className="login-title">Smart Planning</p> */}
-        <img src="/logo_pln.png" alt="" className="login-logo-main" />
-        {/* <img src={FujiLogo} alt="fuji" className="login-logo" /> */}
-        {/* <p className="login-subtitle">SUS PLATE MANAGEMENT</p> */}
+        <img src="/system-logo.png" alt="" className="login-logo"/>
+        <p className="login-title">dashboard monitoring table</p>
         <form onSubmit={handleLogin}>
           <TextField
             label="Username"
@@ -127,9 +128,6 @@ function LoginNew() {
           >
             Login <LockOpenOutlinedIcon sx={{ ml: 1 }} />
           </Button>
-          <Link to="/home" onClick={handleGuest}>
-            Go to dashboard with guest
-          </Link>
         </form>
       </div>
       {/* SVG wave background */}

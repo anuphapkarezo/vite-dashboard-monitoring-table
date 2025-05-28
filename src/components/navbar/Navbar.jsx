@@ -11,16 +11,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Fuji from "/Fuji.png";
+import STLogo from "/system-logo.png";
 import { Link } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import ScaleOutlinedIcon from '@mui/icons-material/ScaleOutlined';
-
-//*mui icon ******************************************************
-import ComputerIcon from "@mui/icons-material/Computer";
-import CableIcon from "@mui/icons-material/Cable";
-import StayPrimaryPortraitIcon from "@mui/icons-material/StayPrimaryPortrait";
-import MemoryIcon from "@mui/icons-material/Memory";
-import DomainIcon from "@mui/icons-material/Domain";
 
 import {
   List,
@@ -126,7 +120,7 @@ export default function Navbar({ onToggle }) {
   // const userGuestRole = userGuestObject?.role_type;
 
   //*Menu name ******************************************************
-
+  const [selectedMenu, setSelectedMenu] = React.useState("");
   const [menuName, setMenuName] = React.useState("Smart Waste Management");
   const [menuIcon, setMenuIcon] = React.useState(
     <img src="" alt="" width={30} />
@@ -135,13 +129,14 @@ export default function Navbar({ onToggle }) {
 
   React.useEffect(() => {
     switch (location.pathname) {
-      case "/smartsus_sus_delivery_order":
-        setMenuName("SUS Delivery Order Management");
-        setMenuIcon(<img src="/sus-delivery.png" alt="" width={30} />);
+      case "/dashboard_monitoring_table":
+        setMenuName("MONITORING TABLE DATA REPORT");
+        setMenuIcon(<img src="/db.png" alt="" width={30} />);
+        setSelectedMenu("mon");
         break;
       default:
-        setMenuName("SUS Plate Management");
-        setMenuIcon(<img src="/sus-plate.png" alt="" width={30} />);
+        setMenuName("DASHBOARD MONITORING TABLE");
+        setMenuIcon(<img src="/main.png" alt="" width={30} />);
     }
   }, [location.pathname]);
 
@@ -208,7 +203,7 @@ export default function Navbar({ onToggle }) {
           <DrawerHeader>
             <Link to="/home">
               <img
-                src={Fuji}
+                src={STLogo}
                 alt="คำอธิบายภาพ"
                 style={{
                   width: 180, // กำหนดความกว้างของภาพให้เต็มขนาดของพื้นที่ที่รองรับ
@@ -225,6 +220,50 @@ export default function Navbar({ onToggle }) {
             </IconButton>
           </DrawerHeader>
           <Divider />
+
+          <div className={`${getUserRoleNo === 2 || getUserRoleNo === 3 ? "hidden" : "block"}`}>
+            <List open={open} >
+              <ListItem
+                onClick={() => setMenuName("MONITORING TABLE DATA REPORT")}
+                disablePadding
+                sx={{ display: "block", color: "black" }}
+                component={Link}
+                to="/dashboard_monitoring_table"
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                    // border: '1px solid black',
+                    border: selectedMenu === "mon" ? "2px solid #1976d2" : "none", // เพิ่ม border เมื่อเลือก
+                    borderRadius: "8px", // Optional: เพิ่มความโค้งของขอบ
+                    backgroundColor: selectedMenu === "mon" ? "#E3F2FD" : "transparent", // Optional: เพิ่มสีพื้นหลังขณะ active
+                    marginBottom: -1, // เพิ่มระยะห่างระหว่างรายการ
+                    marginTop: -0.6, // เพิ่มระยะห่างระหว่างรายการ
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                      color: "inherit", // Set initial color
+                      "&:hover": {
+                        color: "primary.main", // Change color on hover
+                      },
+                    }}
+                  >
+                    <img src="/db.png" alt="" width={30} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="MONITOR TABLE"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </div>
         </Drawer>
       </Box>
     </>
