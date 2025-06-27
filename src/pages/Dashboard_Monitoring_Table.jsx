@@ -150,6 +150,16 @@ export default function SmartSus_upload_sus_vendor_confirm({ onSearch }) {
                           border: 'solid black 1px'
                           }}
                       >
+                          Run Time
+                      </th>
+                      <th
+                          style={{
+                          textAlign: "center",
+                          backgroundColor: "#AED2FF",
+                          width: "70px",
+                          border: 'solid black 1px'
+                          }}
+                      >
                           Min ID
                       </th>
                       <th
@@ -181,16 +191,6 @@ export default function SmartSus_upload_sus_vendor_confirm({ onSearch }) {
                           }}
                       >
                           Max DateTime
-                      </th>
-                      <th
-                          style={{
-                          textAlign: "center",
-                          backgroundColor: "#AED2FF",
-                          width: "70px",
-                          border: 'solid black 1px'
-                          }}
-                      >
-                          Run Time
                       </th>
                     </tr>
                   </thead>
@@ -255,6 +255,14 @@ export default function SmartSus_upload_sus_vendor_confirm({ onSearch }) {
                         </td>
                         <td style={{
                                     border: 'solid black 1px',
+                                    textAlign: 'center',
+                                    height: "30px",
+                                  }}
+                        >
+                          {item.run_time}
+                        </td>
+                        <td style={{
+                                    border: 'solid black 1px',
                                     textAlign: 'left',
                                     height: "30px",
                                     paddingLeft: '10px',
@@ -288,14 +296,6 @@ export default function SmartSus_upload_sus_vendor_confirm({ onSearch }) {
                                   }}
                         >
                           {item.max_update_datetime}
-                        </td>
-                        <td style={{
-                                    border: 'solid black 1px',
-                                    textAlign: 'center',
-                                    height: "30px",
-                                  }}
-                        >
-                          {item.run_time}
                         </td>
                       </tr>
                     ))}
